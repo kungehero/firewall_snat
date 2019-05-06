@@ -25,16 +25,24 @@ func (snat *SnatValues) GetIPFromSnat(shellReturnValue string) {
 func (snat *SnatValues) GetIPValueFromTCP(ips []string, shellReturnValue string) {
 	son := sync.Map{}
 	snat.IPFirewallValue = sync.Map{}
+	fmt.Println(ips)
 	for _, v := range ips {
 		reg := regexp.MustCompile(fmt.Sprintf(`IP:%s+[^)]*`, v))
 		arr := reg.FindString(shellReturnValue)
+		fmt.Println(arr)
 		reg1 := regexp.MustCompile(`\d+`)
 		arr1 := reg1.FindAllString(arr, -1)
+		fmt.Println(arr1)
+		if len(arr1) > 0 {
+			son.Store("usedrate", arr1[6])
+			son.Store("used", arr1[7])
+			son.Store("total", arr1[8])
+			son.Store("available", arr1[9])
+			snat.IPFirewallValue.Store(v, son)
+		} else {
+			fmt.Println(len(arr1))
+			return
+		}
 
-		son.Store("usedrate", arr1[6])
-		son.Store("used", arr1[7])
-		son.Store("total", arr1[8])
-		son.Store("available", arr1[9])
-		snat.IPFirewallValue.Store(v, son)
 	}
 }
