@@ -123,7 +123,12 @@ func (snat *SnatValues) PushDataPrometheus() {
 		switch t := v.(type) {
 		case sync.Map:
 			t.Range(func(ks, vs interface{}) bool {
-				exec.Command("/bin/bash", "-c", fmt.Sprintf(`%v %v %v %v`, snat.PushGateWay, k, ks, vs))
+
+				cmd := exec.Command("/bin/bash", "-c", fmt.Sprintf(`%v %v %v %v`, snat.PushGateWay, k, ks, vs))
+				output, err := cmd.Output()
+				if err != nil {
+					fmt.Println("Execute Shell:%s failed with error:%s", output, err.Error())
+				}
 				return true
 			})
 		default:
