@@ -13,6 +13,7 @@ type SnatValues struct {
 	FirewallIPs     []string
 	Ips             []string
 	IPFirewallValue sync.Map
+	Son             sync.Map
 	Spec            string
 	wg              WaitGroupSnat
 }
@@ -25,6 +26,8 @@ func (snat *SnatValues) Corn() {
 	fmt.Println("start successfully!")
 	c := cron.New()
 	err := c.AddFunc(snat.Spec, func() {
+		snat.IPFirewallValue = sync.Map{}
+		snat.Son = sync.Map{}
 		snat.GoShell()
 		snat.PushDataPrometheus()
 		//时间间隔执行函数
