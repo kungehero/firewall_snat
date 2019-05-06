@@ -27,7 +27,9 @@ func (snat *SnatValues) GetIPValueFromTCP(ips []string, shellReturnValue string)
 	snat.IPFirewallValue = sync.Map{}
 	for _, v := range ips {
 		reg := regexp.MustCompile(fmt.Sprintf(`IP:%v+[^)]*`, v))
+		fmt.Println(fmt.Sprintf(`IP:%v+[^)]*`, v))
 		arr := reg.FindString(shellReturnValue)
+		fmt.Println(arr)
 		reg1 := regexp.MustCompile(`\d+`)
 		arr1 := reg1.FindAllString(arr, -1)
 		if len(arr1) < 9 {
