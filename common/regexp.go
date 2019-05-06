@@ -27,7 +27,9 @@ func (snat *SnatValues) GetIPValueFromTCP(ips []string, shellReturnValue string)
 	snat.IPFirewallValue = sync.Map{}
 	fmt.Println(ips)
 	for _, v := range ips {
-		reg := regexp.MustCompile(fmt.Sprintf(`IP:%s+[^)]*`, v))
+		fmt.Println(fmt.Sprintf(`IP:%v+[^)]*`, v))
+		reg := regexp.MustCompile(fmt.Sprintf(`IP:%v+[^)]*`, v))
+		fmt.Println(shellReturnValue)
 		arr := reg.FindString(shellReturnValue)
 		fmt.Println(arr)
 		reg1 := regexp.MustCompile(`\d+`)
