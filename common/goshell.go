@@ -12,12 +12,11 @@ func (snat *SnatValues) GoShell() {
 		cmd := exec.Command("/bin/bash", "-c", v)
 		output, err := cmd.Output()
 		if err != nil {
-			fmt.Printf("Execute Shell:%s failed with error:%s", v, err.Error())
+			fmt.Println("Execute Shell:%s failed with error:%s", v, err.Error())
 			return
 		}
 		snat.GetIPFromSnat(string(output))
 	}
-	//fmt.Printf("Execute Shell:%s finished with output:\n%s", command, string(output))
 }
 
 //PushDataPrometheus  k=ip ks=tag vs=tagvalue

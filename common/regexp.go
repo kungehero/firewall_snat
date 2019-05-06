@@ -37,5 +37,4 @@ func (snat *SnatValues) GetIPValueFromTCP(ips []string, shellReturnValue string)
 		son.Store("available", arr1[9])
 		snat.IPFirewallValue.Store(v, son)
 	}
-	snat.PushDataPrometheus()
 }
