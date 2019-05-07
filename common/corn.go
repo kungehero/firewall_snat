@@ -27,7 +27,7 @@ func (snat *SnatValues) Corn() {
 	c := cron.New()
 	err := c.AddFunc(snat.Spec, func() {
 		snat.IPFirewallValue = sync.Map{}
-		snat.Son = sync.Map{}
+		//snat.Son = sync.Map{}
 		snat.GoShell()
 		snat.PushDataPrometheus()
 		//时间间隔执行函数

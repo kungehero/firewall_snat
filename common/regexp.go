@@ -3,6 +3,7 @@ package common
 import (
 	"fmt"
 	"regexp"
+	"sync"
 )
 
 //GetIPFromSnat 根据snat命令,获取ip数组
@@ -30,10 +31,16 @@ func (snat *SnatValues) GetIPValueFromTCP(ips []string, shellReturnValue string)
 		arr1 := reg1.FindAllString(arr, -1)
 		if len(arr1) < 9 {
 		} else {
-			snat.Son.Store("usedrate", arr1[6])
+			Son := sync.Map{}
+			/* 	snat.Son.Store("usedrate", arr1[6])
 			snat.Son.Store("used", arr1[7])
 			snat.Son.Store("total", arr1[8])
-			snat.Son.Store("available", arr1[9])
+			snat.Son.Store("available", arr1[9]) */
+			Son.Store("usedrate", arr1[6])
+			Son.Store("used", arr1[7])
+			Son.Store("total", arr1[8])
+			Son.Store("available", arr1[9])
+
 			snat.IPFirewallValue.Store(v, snat.Son)
 		}
 	}
