@@ -26,7 +26,7 @@ func (snat *SnatValues) PushDataPrometheus() {
 		case sync.Map:
 			t.Range(func(ks, vs interface{}) bool {
 				fmt.Println(vs)
-				data := fmt.Sprintf(`%v %v %v %v %v`, snat.PushGateWay, k, ks, vs, ks)
+				data := fmt.Sprintf(`%v %v %v %v %v`, snat.PushGateWay, k, ks, vs, ks, k)
 				cmd := exec.Command("/bin/bash", "-c", data)
 				output, err := cmd.Output()
 				if err != nil {
