@@ -41,7 +41,7 @@ func (snat *SnatValues) GetIPValueFromTCP(ips []string, shellReturnValue string)
 			Son.Store("total", arr1[8])
 			Son.Store("available", arr1[9])
 
-			snat.IPFirewallValue.Store(v, snat.Son)
+			snat.IPFirewallValue.Store(v, Son)
 		}
 	}
 }
