@@ -30,7 +30,6 @@ func (snat *SnatValues) GetIPValueFromTCP(ips []string, shellReturnValue string)
 		arr1 := reg1.FindAllString(arr, -1)
 		if len(arr1) < 9 {
 		} else {
-			fmt.Println(arr1)
 			snat.Son.Store("usedrate", arr1[6])
 			snat.Son.Store("used", arr1[7])
 			snat.Son.Store("total", arr1[8])
