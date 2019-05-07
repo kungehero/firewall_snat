@@ -22,10 +22,10 @@ func (snat *SnatValues) GoShell() {
 //PushDataPrometheus  k=ip ks=tag vs=tagvalue
 func (snat *SnatValues) PushDataPrometheus() {
 	snat.IPFirewallValue.Range(func(k, v interface{}) bool {
+		fmt.Println(k, "----")
 		switch t := v.(type) {
 		case sync.Map:
 			t.Range(func(ks, vs interface{}) bool {
-				fmt.Println(k, vs)
 				data := fmt.Sprintf(`%v %v %v %v %v %v`, snat.PushGateWay, k, ks, vs, ks, k)
 				cmd := exec.Command("/bin/bash", "-c", data)
 				output, err := cmd.Output()
