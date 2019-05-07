@@ -38,12 +38,3 @@ func (snat *SnatValues) Corn() {
 	c.Start()
 	select {}
 }
-
-//Warp go加锁
-func (snat *SnatValues) Warp(cf func()) {
-	snat.wg.Add(1)
-	go func() {
-		cf()
-		snat.wg.Done()
-	}()
-}

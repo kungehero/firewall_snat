@@ -25,18 +25,26 @@ func (snat *SnatValues) PushDataPrometheus() {
 		switch t := v.(type) {
 		case sync.Map:
 			t.Range(func(ks, vs interface{}) bool {
-				data := fmt.Sprintf(`%v %v %v %v`, snat.PushGateWay, k, ks, vs)
+				data := fmt.Sprintf(`%v %v %v %v %v`, snat.PushGateWay, k, ks, vs, ks)
 				cmd := exec.Command("/bin/bash", "-c", data)
-				err := cmd.Start()
-				fmt.Println(data, err)
+				output, err := cmd.Output()
 				if err != nil {
-					fmt.Println("Execute Shell:%s failed with error:%s", data, err.Error())
+					fmt.Println("Execute Shell:%s failed with error:%s", output, err.Error())
 				}
-				fmt.Println("success!")
 				return true
 			})
 		default:
 		}
 		return true
 	})
+	fmt.Println("success!")
+}
+
+//Warp go加锁
+func (snat *SnatValues) Warp(cf func()) {
+	snat.wg.Add(1)
+	go func() {
+		cf()
+		snat.wg.Done()
+	}()
 }
