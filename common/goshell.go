@@ -3,6 +3,7 @@ package common
 import (
 	"fmt"
 	"os/exec"
+	"strings"
 	"sync"
 )
 
@@ -22,11 +23,12 @@ func (snat *SnatValues) GoShell() {
 //PushDataPrometheus  k=ip ks=tag vs=tagvalue
 func (snat *SnatValues) PushDataPrometheus() {
 	snat.IPFirewallValue.Range(func(k, v interface{}) bool {
+		str := k.(string)
+		fw := strings.Split(str, `,`)
 		switch t := v.(type) {
 		case sync.Map:
 			t.Range(func(ks, vs interface{}) bool {
-				fmt.Println(k, vs)
-				data := fmt.Sprintf(`%v %v %v %v %v %v`, snat.PushGateWay, k, ks, vs, ks, k)
+				data := fmt.Sprintf(`%v %v %v %v %v %v`, snat.PushGateWay, fw[0], ks, vs, ks, fw[0], fw[1])
 				cmd := exec.Command("/bin/bash", "-c", data)
 				output, err := cmd.Output()
 				if err != nil {

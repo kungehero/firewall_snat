@@ -13,7 +13,8 @@ func (snat *SnatValues) GetIPFromSnat(shellReturnValue string) {
 	reg := regexp.MustCompile(ipregxp)
 	ips := reg.FindAllString(shellReturnValue, -1)
 	if len(ips) > 0 {
-		snat.GetIPValueFromTCP(ips, shellReturnValue)
+		firawall := ips[0]
+		snat.GetIPValueFromTCP(ips, shellReturnValue, firawall)
 	} else {
 		fmt.Printf("Execute Shell:ip%s", "is null")
 		return
@@ -22,7 +23,7 @@ func (snat *SnatValues) GetIPFromSnat(shellReturnValue string) {
 
 //GetIPValueFromTCP 根据ip获取tcp的值
 //IP:211.151.30.254+[^)]*
-func (snat *SnatValues) GetIPValueFromTCP(ips []string, shellReturnValue string) {
+func (snat *SnatValues) GetIPValueFromTCP(ips []string, shellReturnValue, firawall string) {
 
 	for _, v := range ips {
 		reg := regexp.MustCompile(fmt.Sprintf(`IP:%v+[^)]*`, v))
@@ -40,8 +41,8 @@ func (snat *SnatValues) GetIPValueFromTCP(ips []string, shellReturnValue string)
 			Son.Store("used", arr1[7])
 			Son.Store("total", arr1[8])
 			Son.Store("available", arr1[9])
-
-			snat.IPFirewallValue.Store(v, Son)
+			fw := fmt.Sprintf("%v,%v", v, firawall)
+			snat.IPFirewallValue.Store(fw, Son)
 		}
 	}
 }
