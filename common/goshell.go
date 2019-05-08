@@ -28,7 +28,14 @@ func (snat *SnatValues) PushDataPrometheus() {
 		switch t := v.(type) {
 		case sync.Map:
 			t.Range(func(ks, vs interface{}) bool {
-				data := fmt.Sprintf(`%v %v %v %v %v %v %v`, snat.PushGateWay, fw[0], ks, vs, ks, fw[0], fw[1])
+				var data string
+				if strings.Contains(fw[1], "10.211.4.252") || strings.Contains(fw[1], "10.214.11.3") {
+					data = fmt.Sprintf(`%v %v %v %v %v %v %v`, snat.PushGateWay[2], fw[0], ks, vs, ks, fw[0], fw[1])
+					fmt.Println(data)
+				}
+
+				data = fmt.Sprintf(`%v %v %v %v %v %v %v`, snat.PushGateWay[1], fw[0], ks, vs, ks, fw[0], fw[1])
+				fmt.Println(data)
 				cmd := exec.Command("/bin/bash", "-c", data)
 				output, err := cmd.Output()
 				if err != nil {

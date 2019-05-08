@@ -1,5 +1,5 @@
 {
-    "PushGateWay":"/data/t.sh",
+    "PushGateWay":["/data/t.sh",""],
     "ShellPath":["/data/firewall1.sh","/data/firewall2.sh"],
-    "spec":"0 */1 * * * ?"
+    "spec":"*/1 * * * * ?"
 }

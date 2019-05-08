@@ -1,9 +1,8 @@
 package main
 
 import (
-	"flag"
-
 	"firewall_snat/common"
+	"flag"
 )
 
 func init() {

@@ -8,7 +8,7 @@ import (
 )
 
 type SnatValues struct {
-	PushGateWay     string
+	PushGateWay     []string
 	ShellPath       []string
 	FirewallIPs     []string
 	Ips             []string

@@ -9,7 +9,7 @@ import (
 )
 
 type GlobalConfig struct {
-	PushGateWay string   `json:"PushGateWay"`
+	PushGateWay []string `json:"PushGateWay"`
 	ShellPath   []string `json:"ShellPath"`
 	Spec        string   `json:"spec"`
 }
