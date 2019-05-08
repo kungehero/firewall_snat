@@ -31,10 +31,10 @@ func (snat *SnatValues) PushDataPrometheus() {
 				var data string
 				if strings.Contains(fw[1], "10.211.4.253") || strings.Contains(fw[1], "10.214.11.3") {
 					data = fmt.Sprintf(`%v %v %v %v %v %v %v`, snat.PushGateWay[1], fw[0], ks, vs, ks, fw[0], fw[1])
-					fmt.Println(data)
+				} else {
+					data = fmt.Sprintf(`%v %v %v %v %v %v %v`, snat.PushGateWay[0], fw[0], ks, vs, ks, fw[0], fw[1])
 				}
 
-				data = fmt.Sprintf(`%v %v %v %v %v %v %v`, snat.PushGateWay[0], fw[0], ks, vs, ks, fw[0], fw[1])
 				fmt.Println(data)
 				cmd := exec.Command("/bin/bash", "-c", data)
 				output, err := cmd.Output()
