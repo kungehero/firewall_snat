@@ -12,6 +12,6 @@ func init() {
 }
 
 func main() {
-	snat := common.SnatValues{PushGateWay: common.Config().PushGateWay, Spec: common.Config().Spec, ShellPath: common.Config().ShellPath}
+	snat := common.SnatValues{PushGateWay: common.Config().PushGateWay, Spec: common.Config().Spec, ShellPath: common.Config().ShellPath, SlaveValues: common.Config().Slave, Filepath: common.Config().Filepath}
 	snat.Corn()
 }

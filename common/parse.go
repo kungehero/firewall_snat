@@ -9,9 +9,11 @@ import (
 )
 
 type GlobalConfig struct {
+	Filepath    string   `json:"filepath"`
 	PushGateWay []string `json:"PushGateWay"`
 	ShellPath   []string `json:"ShellPath"`
 	Spec        string   `json:"spec"`
+	Slave       []string `json:"slave"`
 }
 
 var (

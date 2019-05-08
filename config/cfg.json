@@ -1,5 +1,7 @@
 {
-    "PushGateWay":["/data/t.sh",""],
-    "ShellPath":["/data/firewall1.sh","/data/firewall2.sh"],
-    "spec":"*/1 * * * * ?"
+    "filepath":"/data/firewall_snat/",
+    "PushGateWay":["t.sh","y.sh"],    
+    "ShellPath":["a1.sh","b1.sh","c.sh","d.sh"],
+    "spec":"*/1 * * * * ?",
+    "slave":["10.211.4.253","10.214.11.3","10.112.0.3","10.103.11.3","172.16.1.11"]
 }

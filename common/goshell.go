@@ -10,7 +10,7 @@ import (
 //GoShell 调用command脚本文件
 func (snat *SnatValues) GoShell() {
 	for _, v := range snat.ShellPath {
-		cmd := exec.Command("/bin/bash", "-c", v)
+		cmd := exec.Command("/bin/bash", "-c", snat.Filepath+v)
 		output, err := cmd.Output()
 		if err != nil {
 			fmt.Println("Execute Shell:%s failed with error:%s", v, err.Error())
@@ -29,13 +29,11 @@ func (snat *SnatValues) PushDataPrometheus() {
 		case sync.Map:
 			t.Range(func(ks, vs interface{}) bool {
 				var data string
-				if strings.Contains(fw[1], "10.211.4.253") || strings.Contains(fw[1], "10.214.11.3") {
-					data = fmt.Sprintf(`%v %v %v %v %v %v %v`, snat.PushGateWay[1], fw[0], ks, vs, ks, fw[0], fw[1])
+				if snat.StringsContains(fw[1]) {
+					data = fmt.Sprintf(`%v %v %v %v %v %v %v`, snat.Filepath+snat.PushGateWay[1], fw[0], ks, vs, ks, fw[0], fw[1])
 				} else {
-					data = fmt.Sprintf(`%v %v %v %v %v %v %v`, snat.PushGateWay[0], fw[0], ks, vs, ks, fw[0], fw[1])
+					data = fmt.Sprintf(`%v %v %v %v %v %v %v`, snat.Filepath+snat.PushGateWay[0], fw[0], ks, vs, ks, fw[0], fw[1])
 				}
-
-				fmt.Println(data)
 				cmd := exec.Command("/bin/bash", "-c", data)
 				output, err := cmd.Output()
 				if err != nil {
@@ -48,6 +46,16 @@ func (snat *SnatValues) PushDataPrometheus() {
 		}
 		return true
 	})
+}
+
+func (snat *SnatValues) StringsContains(ip string) bool {
+	slave := false
+	for _, v := range snat.SlaveValues {
+		if v == ip {
+			slave = true
+		}
+	}
+	return slave
 }
 
 //Warp go加锁

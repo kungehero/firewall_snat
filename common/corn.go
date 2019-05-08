@@ -16,6 +16,8 @@ type SnatValues struct {
 	Son             sync.Map
 	Spec            string
 	wg              WaitGroupSnat
+	SlaveValues     []string
+	Filepath        string
 }
 type WaitGroupSnat struct {
 	sync.WaitGroup

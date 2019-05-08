@@ -33,10 +33,6 @@ func (snat *SnatValues) GetIPValueFromTCP(ips []string, shellReturnValue, firawa
 		if len(arr1) < 9 {
 		} else {
 			Son := sync.Map{}
-			/* 	snat.Son.Store("usedrate", arr1[6])
-			snat.Son.Store("used", arr1[7])
-			snat.Son.Store("total", arr1[8])
-			snat.Son.Store("available", arr1[9]) */
 			Son.Store("usedrate", arr1[6])
 			Son.Store("used", arr1[7])
 			Son.Store("total", arr1[8])
