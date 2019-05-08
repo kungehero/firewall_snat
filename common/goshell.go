@@ -13,7 +13,7 @@ func (snat *SnatValues) GoShell() {
 		cmd := exec.Command("/bin/bash", "-c", snat.Filepath+v)
 		output, err := cmd.Output()
 		if err != nil {
-			fmt.Println("Execute Shell:%s failed with error:%s", v, err.Error())
+			fmt.Println("Execute Shell:%s failed with error:%s", snat.Filepath+v, err.Error())
 			return
 		}
 		snat.GetIPFromSnat(string(output))
